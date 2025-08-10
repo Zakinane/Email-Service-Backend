@@ -1,8 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
 require('dotenv').config();
 const connectDB = require('./config/db');
-const emailRoutes = require('./routes/emailRoutes')
+const authRoutes = require('./routes/authRoutes');
+const emailRoutes = require('./routes/emailRoutes');
 const cors = require('cors');
 const app = express();
 const PORT = 3001;
@@ -15,14 +15,14 @@ app.use(cors());
 connectDB();
 
 // Routes
-app.use('/', emailRoutes);
-
+app.use('/', authRoutes); 
+app.use('/', emailRoutes); 
 
 // Erreur 404
 app.use((req, res) => {
-  res.status(404).send('Page introuvable dans la bibliothèque !');
+  res.status(404).send('Page not found');
 });
 
 app.listen(PORT, () => {
-  console.log(`Email Service open on port ${PORT}`);
+  console.log(`Page on port : ${PORT}`);
 });

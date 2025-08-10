@@ -1,7 +1,7 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail', 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -10,16 +10,16 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async (to, subject, text) => {
   const mailOptions = {
-    from: `"noReply" <${process.env.EMAIL_USER.trim()}>`,
-    to: to.trim(),
-    subject: subject,
-    text: text,
+    from: '"Zak\'s Email Bot" <sender@example.com>',
+    to,
+    subject,
+    text,
   };
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully!");
+    return 'Email envoyé avec succès !';
   } catch (err) {
-    throw new Error("Erreur while sending : " + err.message);
+    throw new Error('Erreur lors de l\'envoi : ' + err.message);
   }
 };
 
